@@ -23,13 +23,19 @@ struct Cone{
 class IceCreamShop{
     var flavors: [Flavor]?
     var toppings: [String]?
-    var size: [Size]?
+    var size: Size = .large
     var totalSales: Double = 0.0
     
     func listTopFlavors(){
         guard let flavors = flavors else { return }
-        let filtered = flavors.filter {$0.rating > 4}
-        print(filtered)
+        var flavorString = "Flavors: "
+        for flavor in flavors{
+            if flavor.rating > 4{
+                flavorString.append(flavor.name)
+                flavorString.append(", ")
+            }
+        }
+        print(flavorString)
     }
     
     func orderCone(flavor: Flavor, size: Size, topping: String?) -> Cone {
@@ -42,7 +48,28 @@ class IceCreamShop{
         }else{
             print("Your \(flavor) ice cream is $\(size.rawValue)")
         }
-        
         return newCone
     }
 }
+
+let flavorsArray = [
+    Flavor(name: "Strawberry", rating: 1),
+    Flavor(name: "Caramel", rating: 5),
+    Flavor(name: "Chocolate", rating: 7),
+    Flavor(name: "Bubble Gum", rating: 8)
+]
+
+let toppingsArray = ["M&M's","Caramel","Cookie"]
+
+let myShop = IceCreamShop()
+
+//myShop.flavors = flavorsArray
+//myShop.toppings = toppingsArray
+//myShop.size = [.large,.medium,.small]
+
+myShop.listTopFlavors()
+
+//myShop.orderCone(flavor: flavorsArray[0], size: .small, topping: nil)
+
+
+
